@@ -1,7 +1,13 @@
 <div class="toolbar">
-  <button (click)="layoutService.addItem()">Add Item</button>
-  <div class="draggable" draggable="true" (dragend)="layoutService.dropItem('example1')">Example 1</div>
-  <div class="draggable" draggable="true" (dragend)="layoutService.dropItem('example2')">Example 2</div>
+  <button (click)="layoutService.addDeliveryToSchedule(3,2,'RSBOP Phase 1')">Add RSBOP Phase 1</button>
+  <button (click)="layoutService.addDeliveryToSchedule(2,2,'RSBOP Phase 2')">Add RSBOP Phase 2</button>
+  <button (click)="layoutService.addDeliveryToSchedule(1,1,'Data Connectivity')">Add Data Connectivity</button>
+  <!-- <div class="draggable" draggable="true" (dragend)="layoutService.dropItem('example1')">Example 1</div>
+  <div class="draggable" draggable="true" (dragend)="layoutService.dropItem('example2')">Example 2</div> -->
+</div>
+<div class="toolbar">
+  <button (click)="layoutService.updateResource(1)">Add Resource</button>
+  <button (click)="layoutService.updateResource(-1)">Remove Resource</button>
 </div>
 <gridster [options]="options">
   <gridster-item *ngFor="let item of layout"
@@ -9,6 +15,10 @@
     (dragover)="layoutService.setDropId(item.id)"
   >
     <ng-container appLayoutItem [componentRef]="layoutService.getComponentRef(item.id)"></ng-container>
-    <button (click)="layoutService.deleteItem(item)">Delete Item</button>
+    <button (click)="layoutService.removeItem(item)">Delete Item</button>
+    <div class="gridster-item-content" *ngIf="item.hasContent">
+      {{item.content}}
+    </div>
   </gridster-item>
 </gridster>
+
